@@ -1,0 +1,27 @@
+# TypeProf 0.21.3
+
+# Classes
+class Config
+  attr_reader excludes: Array[String]
+  attr_reader section: String
+  def self.load: (String file_path) -> Config
+  def self.make_default_hash: -> {section: String, excludes: Array[String]}
+end
+
+class Result
+  attr_reader contents: Array[String]
+  def initialize: (config: Config) -> void
+  def update: (String line) -> void
+
+  private
+  def store_content: (String line) -> void
+end
+
+class InputFile
+  def self.open: (String? file_path) ?{ (IO) -> untyped } -> untyped
+  def execute: (^(IO) -> untyped block_to_file) -> untyped
+end
+
+class CommandArgs
+  def initialize: (?config: String?) -> void
+end
