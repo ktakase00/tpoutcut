@@ -1,0 +1,5 @@
+section: Errors
+excludes:
+  - '\[warning\]'
+  - 'undefined method: singleton\(YAML\)#safe_load'
+  - 'app/config.rb:[\d]+: \[error\] unknown keyword: '

@@ -1,0 +1,70 @@
+# TypeProf 0.21.3
+
+# Errors
+app/config.rb:13: [error] undefined method: singleton(YAML)#safe_load
+app/config.rb:14: [error] unknown keyword: 
+app/result.rb:11: [warning] inconsistent assignment to RBS-declared variable
+
+# Classes
+class Config
+# def self.load: (String file_path) -> Config
+# def self.make_default_hash: -> {section: String, excludes: Array[String]}
+# attr_reader excludes: Array[String]
+# attr_reader section: String
+  def initialize: (?section: String?, ?excludes: Array[String]?) -> void
+end
+
+class Result
+  @config: Config
+  @regexps: Array[Regexp]
+
+# def initialize: (config: Config) -> void
+# def update: (String line) -> void
+
+  private
+# def store_content: (String line) -> void
+
+  public
+# attr_reader contents: Array[String]
+  attr_reader status: String
+  attr_reader section: String?
+
+  private
+  def change_section: (String? section) -> String
+end
+
+class InputFile
+  @file_handle: IO
+  @file_path: String?
+
+# def self.open: (String? file_path) ?{ (IO) -> untyped } -> untyped
+# def execute: (^(IO) -> untyped block_to_file) -> untyped
+  def self.make_file_handle: (String? file_path) -> IO
+  def initialize: (file_handle: IO, ?file_path: String?) -> void
+  def each: -> IO
+  def close: -> nil
+end
+
+class CommandArgs
+# def initialize: (?config: String?) -> void
+  attr_reader config: String?
+  def self.read: -> CommandArgs
+  def self.make_option_parser: -> OptionParser
+end
+
+class AppParams
+  def self.load: -> AppParams
+  def self.load_config: -> Config
+  def self.retrieve_input_path: -> String
+  attr_reader config: Config
+  attr_reader input_path: String?
+  def initialize: (config: Config, ?input_path: String?) -> void
+end
+
+class Tpoutcut
+  def run: -> Integer
+
+  private
+  def make_result: (AppParams app_params) -> Result
+  def make_exit_code: (Result result) -> Integer
+end
